@@ -11,7 +11,7 @@ const AuthContext = createContext({
     msg: '',
     type: '',
   },
-  showSuccess() {},
+  ui: {},
 });
 
 AuthContext.displayName = 'AutentifikacijaCTX';
@@ -25,13 +25,22 @@ function AuthProvider({ children }) {
     type: '',
   });
 
-  function showSuccess() {
-    setFeedback({
-      show: true,
-      msg: 'Success',
-      type: 'success',
-    });
-  }
+  const ui = {
+    showSuccess() {
+      setFeedback({
+        show: true,
+        msg: 'Success',
+        type: 'success',
+      });
+    },
+    closeAlert() {
+      setFeedback({
+        show: false,
+        msg: '',
+        type: '',
+      });
+    },
+  };
 
   const isLoggedIn = !!user;
 
@@ -45,7 +54,7 @@ function AuthProvider({ children }) {
     isLoggedIn,
     login,
     feedback,
-    showSuccess,
+    ui,
   };
   return (
     <AuthContext.Provider value={authCtx}>{children}</AuthContext.Provider>

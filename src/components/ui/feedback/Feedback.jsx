@@ -5,12 +5,10 @@ import { useAuthCtx } from '../../../store/AuthProvider';
 
 function Feedback() {
 //   pasiimti feedback reiksmes is authCtx ir padaryti kad veiktu parodymas
-  const { feedback } = useAuthCtx()
+  const { feedback, ui } = useAuthCtx()
   const { show, type, msg} = feedback
 
-  const handleClose = () => {
-    
-  };
+  const handleClose = () => ui.closeAlert()
 
   return show ? (
     <div className={`feedback-container ${type}`}>
