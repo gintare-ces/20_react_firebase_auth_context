@@ -20,6 +20,11 @@ function Header() {
               Profile
             </NavLink>
           )}
+          {isLoggedIn && (
+            <NavLink className="navItem" to={'/posts'}>
+              Posts
+            </NavLink>
+          )}
           {!isLoggedIn && (
             <NavLink className="navItem" to={'/login'}>
               Login

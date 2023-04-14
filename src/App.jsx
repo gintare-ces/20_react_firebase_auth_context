@@ -6,6 +6,7 @@ import LoginPage from './pages/LoginPage';
 import ProfilePage from './pages/ProfilePage';
 import Header from './components/layout/Header';
 import Feedback from './components/ui/feedback/Feedback';
+import PostsPage from './pages/PostsPage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/posts" element={<PostsPage />} />
       </Routes>
     </div>
   );
