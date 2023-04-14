@@ -1,9 +1,10 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import './header.scss';
+import { useAuthCtx } from '../../store/AuthProvider';
 
 function Header() {
-  const isLoggedIn = false;
+  const { isLoggedIn } = useAuthCtx();
   return (
     <header>
       <div className="container">

@@ -1,8 +1,10 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import LoginForm from '../components/auth/LoginForm';
 import { auth } from '../firebase/firebase';
+import { useAuthCtx } from '../store/AuthProvider';
 
 function LoginPage() {
+  const { login, showSuccess } = useAuthCtx()
   function loginFire({ email, password }) {
     // turi ivykdyti prisijungima
     
@@ -13,6 +15,8 @@ function LoginPage() {
         const user = userCredential.user;
         // ...
         console.log('Login Success', user);
+        login(user);
+        showSuccess();
       })
       .catch((error) => {
         const errorCode = error.code;

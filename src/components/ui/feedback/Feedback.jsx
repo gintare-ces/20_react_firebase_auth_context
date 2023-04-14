@@ -1,0 +1,25 @@
+import React from 'react';
+import './feedback.scss';
+import { useAuthCtx } from '../../../store/AuthProvider';
+
+
+function Feedback() {
+//   pasiimti feedback reiksmes is authCtx ir padaryti kad veiktu parodymas
+  const { feedback } = useAuthCtx()
+  const { show, type, msg} = feedback
+
+  const handleClose = () => {
+    
+  };
+
+  return show ? (
+    <div className={`feedback-container ${type}`}>
+      <p className="msg">{msg}</p>
+      <button className="close-button" onClick={handleClose}>
+        &times;
+      </button>
+    </div>
+  ) : null;
+}
+
+export default Feedback;
