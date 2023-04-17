@@ -8,10 +8,11 @@ import Header from './components/layout/Header';
 import Feedback from './components/ui/feedback/Feedback';
 import PostsPage from './pages/PostsPage';
 import AddPostPage from './pages/AddPostPage';
-import { useAuthCtx } from './store/AuthProvider';
+// import { useAuthCtx } from './store/AuthProvider';
+import SinglePostPage from './pages/SinglePostPage';
 
 function App() {
-  const { isLoggedIn } = useAuthCtx()
+  // const { isLoggedIn } = useAuthCtx()
   return (
     <div className="">
       <Header />
@@ -19,9 +20,10 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={ <LoginPage />} />
-        <Route path="/profile" element={isLoggedIn && <ProfilePage />} />
-        <Route path="/posts" element={isLoggedIn && <PostsPage />} />
-        <Route path="/posts/new" element={isLoggedIn && <AddPostPage />} />
+        <Route path="/profile" element={ <ProfilePage />} />
+        <Route path="/posts" element={<PostsPage />} />
+        <Route path="/posts/new" element={ <AddPostPage />} />
+        <Route path="/posts/:postUid" element={ <SinglePostPage />} />
       </Routes>
     </div>
   );

@@ -3,4 +3,26 @@
         font-style: italic;
         color: #484848;
     }
+
+    .tagTitle {
+        margin-top: 1rem;
+    }
+
+    .tags {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        margin-top: 0.5rem;
+    }
+
+    .tags span {
+        background-color: #494949;
+        color: #fff;
+        padding: 3px 8px 4px;
+        border-radius: 15px;
+    }
+
+    .link {
+        text-decoration: underline;
+    }
 }

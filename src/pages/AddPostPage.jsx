@@ -3,18 +3,20 @@ import NewPostForm from '../components/posts/NewPostsForm';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 import { useAuthCtx } from '../store/AuthProvider';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 function AddPost() {
+  // naviguoti i posts jei sekmignai sukurtas posts
+  const navigate = useNavigate()
   const { ui, postCreated } = useAuthCtx()
   
   async function createPostFire(newPostObj) {
-    ui.showLoading()
+    // ui.showLoading()
     
     try {
       const docRef = await addDoc(collection(db, 'posts'), newPostObj);
       console.log('Document written with ID: ', docRef.id);
-      ui.showSuccess();
+      navigate('/posts')
       
     } catch (e) {
       console.error('Error adding document: ', e);
