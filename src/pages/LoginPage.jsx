@@ -2,10 +2,16 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import LoginForm from '../components/auth/LoginForm';
 import { auth } from '../firebase/firebase';
 import { useAuthCtx } from '../store/AuthProvider';
+import { NavLink, Navigate, useNavigate } from 'react-router-dom';
+
 
 function LoginPage() {
-  const { login, ui } = useAuthCtx()
+  const navigate = useNavigate()
+  const { login, ui, isLoggedIn, setIsLoading } = useAuthCtx()
   function loginFire({ email, password }) {
+    // ----- start LOADING -----
+    ui.showLoading()
+    setIsLoading(true)
     // turi ivykdyti prisijungima
     
 
@@ -16,20 +22,24 @@ function LoginPage() {
         // ...
         console.log('Login Success', user);
         login(user);
-        ui.showSuccess();
+        setIsLoading()
+        navigate('/profile')
+        
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log('failed sign in', errorMessage);
+        ui.showError('Neteisingas email arba slaptazodis')
       });
   }
   return (
     <div className="container">
       <h1>LoginPage</h1>
       <p>This is LoginPage</p>
-
       <LoginForm onLogin={loginFire} />
+      
+      
     </div>
   );
 }

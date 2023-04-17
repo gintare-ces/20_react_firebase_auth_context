@@ -1,0 +1,18 @@
+.postContainer {
+    .posts {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        list-style: none;
+        gap: 1rem;
+    }
+    .onePost {
+        text-align: center;
+        border: 2px solid #f0e9e9;
+        border-radius: 5px;
+        box-shadow: goldenrod 3px 3px 2px 1px;
+        padding: 1em;
+    }
+    .h3 {
+        font-weight: 500;
+    }
+}
