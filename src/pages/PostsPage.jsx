@@ -3,6 +3,8 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 import '../components/posts/post.scss';
 import { useAuthCtx } from '../store/AuthProvider';
+import SinglePost from '../components/posts/SinglePost';
+import Grid from '../components/ui/grid/Grid';
 
 function PostsPage() {
    const { ui } = useAuthCtx()
@@ -35,20 +37,17 @@ function PostsPage() {
   }, []);
 
   return (
-    <div className="container">
+    < div>
       <h1>Posts Page</h1>
       <p>This is Posts Page</p>
       {/* map over postsArr and display title and body */}
-      <div className="postContainer">
-        <ul className="posts">
+      
+        <Grid className="unlisted" ul cols={2}>
           {postsArr.map((pObj) => (
-            <li className="onePost" key={pObj.uid}>
-              <h3>{pObj.title}</h3>
-              <p>{pObj.body}</p>
-            </li>
+            <SinglePost key={pObj.uid} item={pObj} />
+          
           ))}
-        </ul>
-      </div>
+        </Grid>
     </div>
   );
 }
