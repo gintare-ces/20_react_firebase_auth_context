@@ -22,7 +22,7 @@ service cloud.firestore {
     //   allow read, write: if request.auth != null;
     // }
     match /posts/{postUid} {
-      allow read: if request.auth != null;
+      allow read: if request.auth != null && postUid;
       allow write: if validatePost()
       // allow write: if request.auth != null;
     }

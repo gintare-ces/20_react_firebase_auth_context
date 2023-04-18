@@ -3,24 +3,30 @@ import React, { useEffect, useState } from 'react';
 import NewComment from './NewComment';
 import ListComments from './ListComments';
 import './commentBlock.scss'
-import { collection, doc, getDocs, query } from 'firebase/firestore';
+import { addDoc, collection, doc, getDocs, query } from 'firebase/firestore';
 import { db } from '../../firebase/firebase';
+import { toast } from 'react-hot-toast';
 
 
 
 function CommentsBlock({ postId }) {
 
   const [commentsArr, setCommentsArr] = useState([]);
+  const [commentsCollRef, setCommentsCollRef] = useState({})
+  const [commentTrigger, setCommentTrigger] = useState(false)
 
   useEffect(() => {
     async function getCommentsAboutPost() {
       // reference to a post
-      const docRef = doc(db, 'posts', postId);
-      // reference to collection inside post
+      const docRef = doc(db, 'posts', postId);// reference to collection inside post
+      
       const commentsCollRef = collection(docRef, 'comments');
+      setCommentsCollRef(commentsCollRef)
+
       // Create a query against the collection.
-      const q = query(commentsCollRef);
-      // query returns comments
+
+      const q = query(commentsCollRef); // query returns comments
+     
     //   execute query
       const querySnapshot = await getDocs(q);
       const tempComments = []
@@ -32,20 +38,32 @@ function CommentsBlock({ postId }) {
             ...doc.data(),
           });
         // sudeti tempComments
-        console.log('tempComments ===', tempComments);
       });
+      console.log('tempComments ===', tempComments);
       setCommentsArr(tempComments)
     }
     getCommentsAboutPost()
-  }, []);
+  }, [commentTrigger]);
   console.log('postId ===', postId);
+
+  async function addNewCommentOnFire(newCommentObj) {
+    console.log('newCommentObj ===', newCommentObj);
+    try {
+      const result = await addDoc(commentsCollRef, newCommentObj)
+      console.log('result ===', result);
+      toast.success('comment added')
+      setCommentTrigger(!commentTrigger)
+    } catch (error) {
+      console.warn('error ===', error);
+    }
+  }
   return (
     <div className='commentBlock'>
-      <NewComment />
-      {commentsArr.map((cObj) => (
-          <ListComments key={cObj.uid} item={cObj}/>
+      <NewComment onNewComment={addNewCommentOnFire} />
+      
+          <ListComments items={commentsArr}/>
 
-      ))}
+      
 
     </div>
   );
