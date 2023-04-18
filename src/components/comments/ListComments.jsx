@@ -4,7 +4,12 @@ import Card from '../ui/card/Card'
 
 function ListComments({ items = [] }) {
     // parsiusim komentarus
-    const formatedDateAndTime = ''
+    const formatedDateAndTime = (msTime) =>
+      new Date(msTime).toLocaleString('lt-LT', {
+        dateStyle: 'medium',
+        timeStyle: 'medium',
+      })
+    
     return (
         <ul>
         {items.map((item) => (
@@ -13,7 +18,7 @@ function ListComments({ items = [] }) {
                 <h3>{item.authorEmail}</h3>
                 <p>{item.title}</p>
                 <p>{item.body}</p>
-                <span>{item.timeStamp}</span>
+                <span>{formatedDateAndTime(item.timeStamp)}</span>
 
               </Card>
         </li>
