@@ -2,7 +2,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import LoginForm from '../components/auth/LoginForm';
 import { auth } from '../firebase/firebase';
 import { useAuthCtx } from '../store/AuthProvider';
-import { NavLink, Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 function LoginPage() {

@@ -3,13 +3,18 @@ import React from 'react'
 
 function ListComments({ items = [] }) {
     // parsiusim komentarus
-  return (
-    <div>
+    return (
+        <ul>
         {items.map((item) => (
-        <div key={item.id}>One comment item</div>
+            <li key={item.id}>
+            <p>{item.authorEmail}</p>
+            <p>{item.title}</p>
+            <p>{item.body}</p>
+        </li>
       ))}
-    </div>
+    </ul>
   )
 }
+
 
 export default ListComments

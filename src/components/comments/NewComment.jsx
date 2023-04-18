@@ -10,6 +10,12 @@ body
 timeStamp
 title
  */
+// const commentObj = {
+//     authorEmail: 'james@bond.com',
+//     body: 'this is a test comment',
+//     timeStamp: '9021793848917992',
+//     title: 'title',
+// };
 function NewComment() {
     const { user } = useAuthCtx()
     const formik = useFormik({
@@ -18,7 +24,7 @@ function NewComment() {
           title: 'comment 1',
           body: 'body of comment one',
         },
-        onSubmit: (values) => {
+        onSubmit(values) {
             console.log('values ===', values);
         }
 

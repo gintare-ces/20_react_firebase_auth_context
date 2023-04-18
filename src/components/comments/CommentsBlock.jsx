@@ -2,19 +2,22 @@
 import React, { useEffect, useState } from 'react';
 import NewComment from './NewComment';
 import ListComments from './ListComments';
+import './commentBlock.scss'
+import { collection, doc, getDocs, query } from 'firebase/firestore';
 import { db } from '../../firebase/firebase';
-import { collection, doc, getDocs } from 'firebase/firestore';
-import { query } from 'express';
+
+
 
 function CommentsBlock({ postId }) {
+
   const [commentsArr, setCommentsArr] = useState([]);
+
   useEffect(() => {
     async function getCommentsAboutPost() {
       // reference to a post
       const docRef = doc(db, 'posts', postId);
       // reference to collection inside post
       const commentsCollRef = collection(docRef, 'comments');
-      // query
       // Create a query against the collection.
       const q = query(commentsCollRef);
       // query returns comments
@@ -24,7 +27,12 @@ function CommentsBlock({ postId }) {
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
         console.log(doc.id, ' => ', doc.data());
+        tempComments.push({
+            uid: doc.id,
+            ...doc.data(),
+          });
         // sudeti tempComments
+        console.log('tempComments ===', tempComments);
       });
       setCommentsArr(tempComments)
     }
@@ -32,12 +40,13 @@ function CommentsBlock({ postId }) {
   }, []);
   console.log('postId ===', postId);
   return (
-    <div>
+    <div className='commentBlock'>
       <NewComment />
       {commentsArr.map((cObj) => (
-          <ListComments />
+          <ListComments key={cObj.uid} item={cObj}/>
 
       ))}
+
     </div>
   );
 }
